@@ -17,7 +17,6 @@ function CreateTaskForm({ addTask }) {
             return { ...prevFormData, [name]: value }
         })
     };
-
     const handleAddTask = (event) => {
         event.preventDefault();
         if (formData.title.trim().length === 0 || formData.description.trim().length === 0) {
@@ -27,7 +26,6 @@ function CreateTaskForm({ addTask }) {
         addTask(formData);
         setFormData({ title: '', description: '' })
     };
-
     return (
         <div>
             <form className="create-task">
@@ -55,5 +53,4 @@ function CreateTaskForm({ addTask }) {
         </div>
     );
 }
-
 export default CreateTaskForm;

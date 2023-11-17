@@ -2,7 +2,7 @@ form.create-task {
     position: relative;
     width: 480px;
     margin: 30px auto 20px auto;
-    background: #fff;
+    background: #e8bebe;
     padding: 15px;
     border-radius: 7px;
     box-shadow: 0 1px 5px rgb(138, 137, 137);
@@ -24,7 +24,7 @@ form.create-task button {
     right: 18px;
     bottom: -18px;
     background: #f5ba13;
-    color: #fff;
+    color: #d2abab;
     border: none;
     border-radius: 50%;
     width: 36px;
