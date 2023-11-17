@@ -4,7 +4,7 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 const Header = () => {
     return (
         <header className="Header">
-            <h1><AddTaskIcon />Task Keeper</h1>
+            <h1><AddTaskIcon />My Tasks and Goals</h1>
         </header>
     );
 };
