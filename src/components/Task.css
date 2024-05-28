@@ -4,13 +4,15 @@
     box-shadow: 0 2px 5px #e8bebe;
     padding: 10px;
     width: 240px;
-    margin: 16px;
+    margin: 10%;
     float: left;
 }
 
 .Task h1 {
     font-size: 1.1em;
     margin-bottom: 6px;
+    word-wrap: break-word;
+
 }
 
 .Task p {

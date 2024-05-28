@@ -40,22 +40,36 @@ const App = () => {
   };
 
   const toggleIsComplete = async (id) => {
-    const task = await fetchTargeTask(id)
-
-    const mark = !task.isComplete ? 'mark_complete' : 'mark_incomplete';
-
-    const response = await axios.patch(`${baseURL}/tasks/${id}/${mark}`);
-
-    const newTask = convertFromApi(response.data);
-    setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task.id === id) {
-          return newTask
-        } else {
-          return task
-        }
+      // Fetch the current task from the local state
+      const currentTask = tasks.find((task) => task.id === id);
+    
+      // Determine whether to mark the task as complete or incomplete
+      const mark = !currentTask.isComplete ? 'mark_complete' : 'mark_incomplete';
+    
+      // Send the PATCH request to the server
+      const response = await axios.patch(`${baseURL}/tasks/${id}/${mark}`);
+    
+      // Convert the response from the server
+      const newTask = convertFromApi(response.data);
+    
+      // Then, update the local state
+      setTasks((prevTasks) => {
+        return prevTasks.map((task) => {
+          if (task.id === id) {
+            return { ...task, isComplete: !task.isComplete };
+          } else {
+            return task;
+          }
+        });
       });
-    });
+    };
+
+  const updateTask = (updatedTask) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === updatedTask.id ? updatedTask : task
+      )
+    );
   };
 
   useEffect(() => {
@@ -67,14 +81,19 @@ const App = () => {
 
     }
     fetchTasks();
-  }, [tasks])
+  }, [])
 
   return (
     <div className="App">
       <Header />
       <CreateTaskForm addTask={addTask} />
       {isLoading && <h1 id='loading'>Loading...</h1>}
-      <TaskList tasks={tasks} deleteTask={deleteTask} toggleIsComplete={toggleIsComplete} />
+      <TaskList 
+      key={tasks.map(task => task.id).join(',')}
+      tasks={tasks} 
+      deleteTask={deleteTask} 
+      toggleIsComplete={toggleIsComplete} 
+      updateTask={updateTask} />
     </div>
   );
 };

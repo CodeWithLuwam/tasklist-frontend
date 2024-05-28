@@ -3,22 +3,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import PropTypes from 'prop-types';
 
-const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete }) => {
+const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete, draggable, onDragStart}) => {
 
   const styles = {
     textDecoration: isComplete ? 'line-through' : 'none',
   };
 
-  const handleMarkComplete = () => {
-    toggleIsComplete(id);
+  const handleMarkComplete = (event, checked) => {
+    if (checked !== isComplete) {
+      toggleIsComplete(id);
+    }
   };
-
   const handleDeleteTask = () => {
     deleteTask(id);
   };
 
   return (
-    <div className='Task'>
+    <div 
+    className='Task'
+    draggable={draggable}
+    onDragStart={onDragStart}
+    >
       <h1 style={styles}>{title}</h1>
       <p style={styles}>{description}</p>
       <Checkbox
