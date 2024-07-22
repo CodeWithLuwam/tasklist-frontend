@@ -6,8 +6,13 @@
     width: 240px;
     margin: 10%;
     float: left;
+    cursor: grab
 }
 
+.Task:active {
+    cursor: grabbing;
+  }
+  
 .Task h1 {
     font-size: 1.1em;
     margin-bottom: 6px;

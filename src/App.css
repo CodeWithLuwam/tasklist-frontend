@@ -1,12 +1,117 @@
-.App {
-  width: 100%;
+/* App.css */
+body {
+  background-color: #f0f4f8;
+  font-family: 'Roboto', sans-serif;
 }
 
-#loading {
-  text-align: center;
-  color: #fff;
-  font-family: "McLaren", cursive;
-  font-weight: 200;
-  font-size: 6rem;
-  ;
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header.css */
+.Header {
+  background-color: #2c3e50;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.Header h1 {
+  color: #ecf0f1;
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.Header h1 svg {
+  margin-right: 10px;
+}
+
+/* CreateTaskForm.css */
+form.create-task {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+form.create-task input,
+form.create-task textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+form.create-task button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+form.create-task button:hover {
+  background-color: #2980b9;
+}
+
+/* TaskList.css */
+.task-list {
+  display: flex;
+  gap: 20px;
+}
+
+.task-section {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-section h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Task.css */
+.Task {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.Task h1 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.Task p {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+}
+
+.Task button {
+  background-color: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 18px;
 }
