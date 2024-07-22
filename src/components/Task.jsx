@@ -1,43 +1,40 @@
-import './Task.css';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
-import PropTypes from 'prop-types';
-
-const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete, draggable, onDragStart}) => {
-
-  const styles = {
-    textDecoration: isComplete ? 'line-through' : 'none',
+import React from 'react';
+import { Card, CardContent, Typography, IconButton, Checkbox } from '@mui/material';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete, draggable, onDragStart }) => {
+  const handleMarkComplete = (event) => {
+    toggleIsComplete(id);
   };
 
-  const handleMarkComplete = (event, checked) => {
-    if (checked !== isComplete) {
-      toggleIsComplete(id);
-    }
-  };
   const handleDeleteTask = () => {
     deleteTask(id);
   };
 
   return (
-    <div 
-    className='Task'
-    draggable={draggable}
-    onDragStart={onDragStart}
+    <Card
+      sx={{ marginBottom: 2, opacity: isComplete ? 0.6 : 1 }}
+      draggable={draggable}
+      onDragStart={onDragStart}
     >
-      <h1 style={styles}>{title}</h1>
-      <p style={styles}>{description}</p>
-      <Checkbox
-        checked={isComplete}
-        onChange={handleMarkComplete}
-        inputProps={{ 'aria-label': 'controlled' }}
-        sx={{
-          color: '#f5ba13',
-          '&.Mui-checked': {
-            color: '#f5ba13',
-          },
-        }} />
-      <button id='delete-task' onClick={handleDeleteTask}><DeleteIcon /></button>
-    </div >
+      <CardContent>
+        <Typography variant="h6" component="div" sx={{ textDecoration: isComplete ? 'line-through' : 'none' }}>
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ textDecoration: isComplete ? 'line-through' : 'none' }}>
+          {description}
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+          <Checkbox
+            checked={isComplete}
+            onChange={handleMarkComplete}
+            color="primary"
+          />
+          <IconButton aria-label="delete" onClick={handleDeleteTask} size="small">
+            <DeleteForeverOutlinedIcon/>
+          </IconButton>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

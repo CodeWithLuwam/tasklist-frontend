@@ -1,56 +1,59 @@
-import { useState } from "react";
-import './CreateTaskForm.css';
+import React, { useState } from 'react';
+import { TextField, Button, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Zoom } from '@mui/material';
 
 function CreateTaskForm({ addTask }) {
-    const [formData, setFormData] = useState({ title: '', description: '' });
-    const [isExpanded, setExpanded] = useState(false);
-    const [isValid, setIsValid] = useState(true);
+  const [formData, setFormData] = useState({ title: '', description: '' });
+  const [isValid, setIsValid] = useState(true);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        if (value) {
-            setIsValid(true)
-        }
-        setFormData((prevFormData) => {
-            return { ...prevFormData, [name]: value }
-        })
-    };
-    const handleAddTask = (event) => {
-        event.preventDefault();
-        if (formData.title.trim().length === 0 || formData.description.trim().length === 0) {
-            setIsValid(false);
-            return;
-        }
-        addTask(formData);
-        setFormData({ title: '', description: '' })
-    };
-    return (
-        <div>
-            <form className="create-task">
-                {isExpanded &&
-                    <input
-                        name="title"
-                        placeholder={"Task Title"}
-                        value={formData.title}
-                        onChange={handleInputChange}
-                    />
-                }
-                <textarea
-                    onClick={() => setExpanded(true)}
-                    name="description"
-                    placeholder={isExpanded ? 'Task Content' : 'Create a task'}
-                    rows={isExpanded ? '3' : '1'}
-                    value={formData.description}
-                    onChange={handleInputChange}
-                />
-                <Zoom in={isExpanded}>
-                    <Fab onClick={handleAddTask}><AddIcon /></Fab>
-                </Zoom>
-            </form>
-            {!isValid && <p className="not-valid-message">❗️Oh,no! Your task is not complete!</p>}
-        </div>
-    );
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setIsValid(true);
+  };
+
+  const handleAddTask = (event) => {
+    event.preventDefault();
+    if (formData.title.trim().length === 0 || formData.description.trim().length === 0) {
+      setIsValid(false);
+      return;
+    }
+    addTask(formData);
+    setFormData({ title: '', description: '' });
+  };
+
+  return (
+    <Box component="form" onSubmit={handleAddTask} sx={{ marginBottom: 4 }}>
+      <TextField
+        fullWidth
+        name="title"
+        label="Task Title"
+        value={formData.title}
+        onChange={handleInputChange}
+        margin="normal"
+        error={!isValid}
+      />
+      <TextField
+        fullWidth
+        name="description"
+        label="Task Description"
+        value={formData.description}
+        onChange={handleInputChange}
+        margin="normal"
+        multiline
+        rows={3}
+        error={!isValid}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        startIcon={<AddIcon />}
+        sx={{ marginTop: 2 }}
+      >
+        Add Task
+      </Button>
+    </Box>
+  );
 }
+
 export default CreateTaskForm;

@@ -2,6 +2,7 @@ import Task from './Task';
 import './TaskList.css';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Paper, Typography, Grid } from '@mui/material';
 
 const TaskList = ({ tasks, deleteTask, toggleIsComplete, updateTask }) => {
   const [draggedTask, setDraggedTask] = useState(null);
@@ -42,76 +43,43 @@ const TaskList = ({ tasks, deleteTask, toggleIsComplete, updateTask }) => {
   const inProgressTasks = tasks.filter(task => task.isInProgress && !task.isComplete);
   const doneTasks = tasks.filter(task => task.isComplete);
 
+  const renderTaskSection = (title, taskList, sectionName) => (
+    <Grid item xs={12} md={4}>
+      <Paper 
+        className="task-section" 
+        elevation={3}
+        onDragOver={(e) => handleDragOver(e, sectionName)}
+        onDrop={handleDrop}
+      >
+        <Typography variant="h6" className={`${sectionName}-title`}>{title}</Typography>
+        <ul>
+          {taskList.map((task) => (
+            <li key={task.id} draggable onDragStart={(e) => handleDragStart(e, task)}>
+              <Task
+                id={task.id}
+                title={task.title}
+                description={task.description}
+                isComplete={task.isComplete}
+                deleteTask={deleteTask}
+                toggleIsComplete={toggleIsComplete}
+                draggable
+                onDragStart={(e) => handleDragStart(e, task)}
+              />
+            </li>
+          ))}
+        </ul>
+      </Paper>
+    </Grid>
+  );
+
   return (
     <div className="task-list">
-      <div className="task-section"
-        onDragOver={(e) => handleDragOver(e, 'todo')}
-        onDrop={handleDrop}
-      >
-        <div className="todo-title">To-do</div>
-        <ul>
-          {todoTasks.map((task) => (
-            <li key={task.id} >
-              <Task
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                isComplete={task.isComplete}
-                deleteTask={deleteTask}
-                toggleIsComplete={toggleIsComplete}
-                draggable 
-                onDragStart={(e) => handleDragStart(e, task)}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div
-        className="task-section"
-        onDragOver={(e) => handleDragOver(e, 'inProgress')}
-        onDrop={handleDrop}
-      >
-        <div className="inprogress-title">In Progress</div>
-        <ul>
-          {inProgressTasks.map((task) => (
-            <li key={task.id} draggable onDragStart={(e) => handleDragStart(e, task)}>
-              <Task
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                isComplete={task.isComplete}
-                deleteTask={deleteTask}
-                toggleIsComplete={toggleIsComplete}
-                draggable
-                onDragStart={(e) => handleDragStart(e, task)}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div
-        className="task-section"
-        onDragOver={(e) => handleDragOver(e, 'done')}
-        onDrop={handleDrop}
-      >
-        <div className="done-title">Done</div>
-        <ul>
-          {doneTasks.map((task) => (
-            <li key={task.id} draggable onDragStart={(e) => handleDragStart(e, task)}>
-              <Task
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                isComplete={task.isComplete}
-                deleteTask={deleteTask}
-                toggleIsComplete={toggleIsComplete}
-                draggable
-                onDragStart={(e) => handleDragStart(e, task)}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Grid container spacing={2}>
+        {renderTaskSection('To-do', todoTasks, 'todo')}
+        {renderTaskSection('In Progress', inProgressTasks, 'inProgress')}
+        {renderTaskSection('Done', doneTasks, 'done')}
+      </Grid>
+
     </div>
   );
 };
