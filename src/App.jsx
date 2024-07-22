@@ -4,6 +4,30 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import CreateTaskForm from './components/CreateTaskForm';
 import axios from 'axios';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#DB7735', // This is your original color
+    },
+  },
+  typography: {
+    fontFamily: '"McLaren", "Roboto", "Helvetica", "Arial", sans-serif',
+    h5: {
+      fontWeight: 500,
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.3)',
+        },
+      },
+    },
+  },
+});
 
 // const BASE_URL = "http://127.0.0.1:5000";
 const baseURL = "https://task-list-be-de7a55c3f23e.herokuapp.com";
@@ -84,17 +108,19 @@ const App = () => {
   }, [])
 
   return (
-    <div className="App">
-      <Header />
-      <CreateTaskForm addTask={addTask} />
-      {isLoading && <h1 id='loading'>Loading...</h1>}
-      <TaskList 
-      key={tasks.map(task => task.id).join(',')}
-      tasks={tasks} 
-      deleteTask={deleteTask} 
-      toggleIsComplete={toggleIsComplete} 
-      updateTask={updateTask} />
-    </div>
+    <>
+      <div className="App">
+        <Header />
+        <CreateTaskForm addTask={addTask} />
+        {isLoading && <h1 id='loading'>Loading...</h1>}
+        <TaskList 
+        key={tasks.map(task => task.id).join(',')}
+        tasks={tasks} 
+        deleteTask={deleteTask} 
+        toggleIsComplete={toggleIsComplete} 
+        updateTask={updateTask} />
+      </div>
+    </>
   );
 };
 
