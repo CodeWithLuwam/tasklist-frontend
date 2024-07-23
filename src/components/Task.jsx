@@ -12,7 +12,14 @@ const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete
 
   return (
     <Card
-      sx={{ marginBottom: 2, opacity: isComplete ? 0.6 : 1 }}
+      sx={{ 
+        marginBottom: 2, 
+        opacity: isComplete ? 0.6 : 1, // Reduce opacity for completed tasks
+        cursor: draggable ? 'grab' : 'default', // Change cursor for draggable tasks
+        '&:active': {
+          cursor: 'grabbing' // Change cursor when dragging
+        }
+      }}
       draggable={draggable}
       onDragStart={onDragStart}
     >
