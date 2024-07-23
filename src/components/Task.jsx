@@ -29,6 +29,29 @@ const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete
             onChange={handleMarkComplete}
             color="primary"
           />
+          {/* "Start" button for tasks not in progress and not complete */}
+          {!isInProgress && !isComplete && (
+            <Button
+              startIcon={<PlayArrowIcon />}
+              onClick={handleMoveToInProgress}
+              size="small"
+              variant="outlined"
+            >
+              Start
+            </Button>
+          )}
+          {/* "Pause" button for completed tasks */}
+          {isComplete && (
+            <Button
+              startIcon={<PauseIcon />}
+              onClick={handleMoveToPaused}
+              size="small"
+              variant="outlined"
+            >
+              Pause
+            </Button>
+          )}
+          {/* Delete button */}
           <IconButton aria-label="delete" onClick={handleDeleteTask} size="small">
             <DeleteForeverOutlinedIcon/>
           </IconButton>
