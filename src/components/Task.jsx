@@ -10,6 +10,16 @@ const Task = ({ id, title, description, isComplete, deleteTask, toggleIsComplete
     deleteTask(id);
   };
 
+  // Handler for moving a task to "In Progress" state
+  const handleMoveToInProgress = () => {
+    moveToInProgress(id);
+  };
+
+  // Handler for moving a task from "Complete" to "In Progress" state
+  const handleMoveToPaused = () => {
+    moveToPaused(id);
+  };
+
   return (
     <Card
       sx={{ 
